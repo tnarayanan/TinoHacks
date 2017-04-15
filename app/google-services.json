@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "81208271089",
+    "firebase_url": "https://tinohacks-f8c89.firebaseio.com",
+    "project_id": "tinohacks-f8c89",
+    "storage_bucket": "tinohacks-f8c89.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:81208271089:android:1ad10defe38a6a29",
+        "android_client_info": {
+          "package_name": "com.example.tejas.tinohacks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "81208271089-4grt7g8ibfq8aq9f2cr306c8nrck5jea.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tejas.tinohacks",
+            "certificate_hash": "fce8a1d6271578b4fa8db3bd3704fd11faf586e9"
+          }
+        },
+        {
+          "client_id": "81208271089-o8j74r22da542b2g34qpb5te3vh71buc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABRHnap2XZcwXpXV2NIHCPAacJT9dZdgE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "81208271089-o8j74r22da542b2g34qpb5te3vh71buc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
