@@ -17,13 +17,17 @@ import java.util.List;
 
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PolicyViewHolder> {
 
+    //CustomItemClickListener mListener;
+
     public static class PolicyViewHolder extends RecyclerView.ViewHolder {
 
         CardView cv;
         TextView policyName;
         TextView policyDesc;
 
-        Policy cp;
+
+
+        //Policy cp;
 
 
         PolicyViewHolder(View itemView) {
@@ -32,12 +36,12 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PolicyViewHolder> 
             policyName = (TextView)itemView.findViewById(R.id.policyName);
             policyDesc = (TextView)itemView.findViewById(R.id.policyDesc);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+            /*itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(v.getContext(), cp.name, Toast.LENGTH_LONG).show();
                 }
-            });
+            });*/
         }
     }
 
@@ -56,6 +60,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PolicyViewHolder> 
     public PolicyViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item, viewGroup, false);
         PolicyViewHolder pvh = new PolicyViewHolder(v);
+
         return pvh;
     }
 
@@ -65,7 +70,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PolicyViewHolder> 
 
         personViewHolder.policyName.setText(policies.get(i).name);
         personViewHolder.policyDesc.setText(policies.get(i).description);
-        personViewHolder.cp = policies.get(i);
+        //personViewHolder.cp = policies.get(i);
     }
 
     @Override
