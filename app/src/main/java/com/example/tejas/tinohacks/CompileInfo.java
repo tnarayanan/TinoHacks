@@ -1,11 +1,13 @@
 package com.example.tejas.tinohacks;
 
 
+import java.lang.reflect.Array;
 import java.net.*;
 import java.io.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import java.util.ArrayList;
 
 
 /**
@@ -29,7 +31,8 @@ public class CompileInfo {
         // PBS
         // CNN
 
-        System.out.println(access("https://en.wikipedia.org/wiki/India%E2%80%93European_Union_relations"));
+        System.out.println(accessStrings("https://en.wikinews.org/wiki/Donald_Trump_elected_US_president"));
+        System.out.println(accessImages("https://en.wikinews.org/wiki/Donald_Trump_elected_US_president"));
 
         /*Document doc = Jsoup.parse(html.toString());
         Element link = doc.select("a").first();*/
@@ -48,7 +51,36 @@ public class CompileInfo {
         System.out.println(linkInnerH);*/
     }
 
-    private static String access(String url) throws IOException {
+    private static ArrayList<String> chooseSentences(String url) throws IOException { // returns date and stats
+        String para = accessStrings(url);
+        ArrayList<String> stats = new ArrayList<>();
+        boolean isSkipping = false;
+        int begSentence = 0;
+        for (int i = 0; i < para.length(); i++) {
+            if (Character.isDigit(para.charAt(i)) && !isSkipping) {
+                isSkipping = true;
+            }
+
+            if (i > 0 && (Character.isLetter(para.charAt(i)) || para.charAt(i) == ' ') && para.charAt(i - 1) == '.') {
+
+                if (isSkipping){
+                    stats.add(para.substring(begSentence, i+1));
+                    isSkipping = false;
+                }
+
+                begSentence = i + 1;
+            }
+        }
+
+        return stats;
+    }
+
+    private static void chooseImages(String url) throws IOException {
+        ArrayList<String> allImg = accessImages(url);
+
+    }
+
+    private static String accessStrings(String url) throws IOException { // one long string of all info in paragraph
         String allInfo = "";
         URL website = new URL(url);
         BufferedReader html = new BufferedReader(
@@ -59,13 +91,38 @@ public class CompileInfo {
             Document doc = Jsoup.parse(inputLine);
             String curLine = doc.getElementsByTag("p").text();
             if (curLine != null) {
-                System.out.println(curLine);
-                allInfo += " ";
                 allInfo += curLine;
             }
         }
 
         html.close();
         return allInfo;
+    }
+
+    private static ArrayList<String> accessImages(String url) throws IOException { // array of images
+        ArrayList<String> listUrls = new ArrayList<>();
+        URL website = new URL(url);
+        BufferedReader br = new BufferedReader(
+                new InputStreamReader(website.openStream()));
+        String inputLine;
+
+        while ((inputLine = br.readLine()) != null) {
+
+            Document doc = Jsoup.parse(inputLine);
+            String storeString = doc.getElementsByTag("img").attr("src");
+
+            try {
+                if (storeString.substring(0, 3).equals("//u")) {
+                    storeString = storeString.replace("//", "");
+                    listUrls.add(storeString);
+                    //System.out.println(storeString);
+                }
+            } catch (Exception e) {
+            }
+
+        }
+        br.close();
+
+        return listUrls;
     }
 }
