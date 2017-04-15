@@ -1,5 +1,8 @@
 package com.example.tejas.tinohacks;
 
+
+import java.net.*;
+import java.io.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -10,10 +13,14 @@ import org.jsoup.nodes.Element;
  */
 
 public class CompileInfo {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // order of reliability.
 
-        // wall street journal
+
+        // do wikinews https://en.wikinews.org/wiki/Donald_Trump_elected_US_president
+
+
+        // wall street journal https://www.wsj.com/articles/in-mike-pences-pacific-swing-security-will-trump-trade-1492254005
         // The Economist
         // BBC
         // Google News
@@ -22,11 +29,12 @@ public class CompileInfo {
         // PBS
         // CNN
 
-        String instanceNews = "<p>An <a href='https://www.theguardian.com/us-news/2017/apr/14/resistance-now-tax-march-trump-returns-democrats-seat-sanders-talk-show'><b>example</b></a> link.</p>";
-        Document doc = Jsoup.parse(instanceNews);
-        Element link = doc.select("a").first();
+        System.out.println(access("https://en.wikipedia.org/wiki/India%E2%80%93European_Union_relations"));
 
-        String text = doc.body().text(); // "An example link"
+        /*Document doc = Jsoup.parse(html.toString());
+        Element link = doc.select("a").first();*/
+
+        /*String text = doc.body().text(); // "An example link"
         String linkHref = link.attr("href"); // "http://example.com/"
         String linkText = link.text(); // "example""
         String linkOuterH = link.outerHtml();
@@ -37,6 +45,27 @@ public class CompileInfo {
         System.out.println(linkHref);
         System.out.println(linkText);
         System.out.println(linkOuterH);
-        System.out.println(linkInnerH);
+        System.out.println(linkInnerH);*/
+    }
+
+    private static String access(String url) throws IOException {
+        String allInfo = "";
+        URL website = new URL(url);
+        BufferedReader html = new BufferedReader(
+                new InputStreamReader(website.openStream()));
+        String inputLine;
+
+        while ((inputLine = html.readLine()) != null) {
+            Document doc = Jsoup.parse(inputLine);
+            String curLine = doc.getElementsByTag("p").text();
+            if (curLine != null) {
+                System.out.println(curLine);
+                allInfo += " ";
+                allInfo += curLine;
+            }
+        }
+
+        html.close();
+        return allInfo;
     }
 }
