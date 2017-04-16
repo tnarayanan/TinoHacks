@@ -51,9 +51,6 @@ public class detailedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed);
 
-        Bundle extras = getIntent().getExtras();
-        final int policyID = extras.getInt("policyID");
-
         title = (TextView) findViewById(R.id.title);
         article = (TextView) findViewById(R.id.article);
         forum = (Button) findViewById(R.id.forum);
@@ -66,7 +63,7 @@ public class detailedActivity extends AppCompatActivity {
         //barChart = (BarChart) findViewById(R.id.barGraph);
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference reference = database.getReference().child("policies").child(String.valueOf(policyID));
+        final DatabaseReference reference = database.getReference().child("policies").child(String.valueOf(MainActivity.policyID));
 /*
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -176,7 +173,6 @@ public class detailedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), ForumActivity.class);
-                i.putExtra("policyID", policyID);
                 startActivity(i);
             }
         });
@@ -185,7 +181,6 @@ public class detailedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), ProtestOrganization.class);
-                i.putExtra("policyID", policyID);
                 startActivity(i);
             }
         });

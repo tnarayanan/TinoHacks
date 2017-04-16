@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
     public GoogleApiClient mGoogleApiClient;
 
+    public static int policyID;
+
 
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -86,9 +88,9 @@ public class MainActivity extends AppCompatActivity {
         ItemClickSupport.addTo(rv).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                policyID = position;
                 Toast.makeText(getApplicationContext(), String.valueOf(position), Toast.LENGTH_LONG).show();
                 Intent i = new Intent(getApplicationContext(), detailedActivity.class);
-                i.putExtra("policyID", position);
                 startActivity(i);
             }
         });
