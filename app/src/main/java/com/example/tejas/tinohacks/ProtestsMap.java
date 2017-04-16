@@ -88,7 +88,7 @@ public class ProtestsMap extends FragmentActivity implements OnMapReadyCallback 
 
     private void setUpMap(){
         LatLng pos = getLocationFromAddress(getApplicationContext(),ProtestOrganization.userAddress);
-        Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(0,0)).title("This protest is organized for this policy: " + ProtestOrganization.policy).snippet("Time: " + ProtestOrganization.protestTime                                                                                                                                              ));
+        Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(0,0)).title("This protest is organized for this policy: " + ProtestOrganization.policy).snippet("Time: " + ProtestOrganization.protestTime  + " Date: " + ProtestOrganization.protestDate                                                                                                                                            ));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(pos));
 
 

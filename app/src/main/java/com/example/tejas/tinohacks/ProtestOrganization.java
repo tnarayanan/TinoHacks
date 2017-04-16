@@ -20,10 +20,11 @@ public class ProtestOrganization extends AppCompatActivity {
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-    public static String policy = "hello";
-
     public static String userAddress;
     public static String protestTime;
+    public static String protestDate;
+
+    public static String policy;
 
     public void submitButton(){
         final DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker1);
@@ -39,6 +40,8 @@ public class ProtestOrganization extends AppCompatActivity {
 
         userAddress = protestAddress.getText().toString();
 
+        protestDate = month + " " + day + ", " + year;
+
         String am_pm = "";
 
         if(hour<11){
@@ -51,7 +54,6 @@ public class ProtestOrganization extends AppCompatActivity {
         protestTime = hour + ":" + minute + " " + am_pm;
 
 
-        database.getReference("Protests").child(policy).child(userAddress).setValue(protestTime);
 
 
         database.getReference("Policies").addValueEventListener(new ValueEventListener() {
@@ -59,7 +61,6 @@ public class ProtestOrganization extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot childDataSnapshot:dataSnapshot.getChildren()){
                     database.getReference("Protests").child(childDataSnapshot.getKey().toString()).setValue(null);
-
                 }
             }
 
