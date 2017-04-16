@@ -10,7 +10,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
+import net.sf.classifier4J.summariser.SimpleSummariser;
 
 public class detailedActivity extends AppCompatActivity {
 
@@ -29,14 +29,16 @@ public class detailedActivity extends AppCompatActivity {
         article = (TextView) findViewById(R.id.article);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference().child(String.valueOf(policyID));
+        DatabaseReference reference = database.getReference().child("policies").child(String.valueOf(policyID));
 
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 title.setText(dataSnapshot.child("title").getValue().toString());
-                article.setText(dataSnapshot.child("article").getValue().toString());
+
+                SimpleSummariser summariser = new SimpleSummariser();
+                article.setText(summariser.summarise(dataSnapshot.child("article").getValue().toString(), 3));
             }
 
             @Override
