@@ -63,11 +63,11 @@ public class detailedActivity extends AppCompatActivity {
         happy = (RadioButton) findViewById(R.id.happy);
         sad = (RadioButton) findViewById(R.id.sad);
 
-        barChart = (BarChart) findViewById(R.id.barGraph);
+        //barChart = (BarChart) findViewById(R.id.barGraph);
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference reference = database.getReference().child("policies").child(String.valueOf(policyID));
-
+/*
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
@@ -126,7 +126,7 @@ public class detailedActivity extends AppCompatActivity {
                 barChart.setScaleEnabled(true);
 
 
-
+                */
 
                 /*
                 DefaultCategoryDataset dataset = new DefaultCategoryDataset();
@@ -152,10 +152,10 @@ public class detailedActivity extends AppCompatActivity {
 
                 CategoryPlot plot = (CategoryPlot) chart.getPlot();
 
-                //final ChartComposite frame = new ChartComp*/
+                //final ChartComposite frame = new ChartComp
 
             }
-        });
+        });*/
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
