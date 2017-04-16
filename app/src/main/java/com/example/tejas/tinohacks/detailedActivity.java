@@ -59,9 +59,9 @@ public class detailedActivity extends AppCompatActivity {
         forum = (Button) findViewById(R.id.forum);
         protest = (Button) findViewById(R.id.protest);
 
-        rg = (RadioGroup) findViewById(R.id.rg);
+        /*rg = (RadioGroup) findViewById(R.id.rg);
         happy = (RadioButton) findViewById(R.id.happy);
-        sad = (RadioButton) findViewById(R.id.sad);
+        sad = (RadioButton) findViewById(R.id.sad);*/
 
         //barChart = (BarChart) findViewById(R.id.barGraph);
 

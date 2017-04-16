@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:padding="15dp"
                 android:text="TextView" />
-
+<!--
             <TextView
                 android:id="@+id/ratingLabel"
                 android:layout_width="match_parent"
@@ -66,7 +66,7 @@
             <com.github.mikephil.charting.charts.BarChart
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
-                android:id="@+id/barGraph"/>
+                android:id="@+id/barGraph"/>-->
 
             <Button
                 android:id="@+id/forum"
