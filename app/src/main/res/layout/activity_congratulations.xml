@@ -28,14 +28,16 @@
         android:id="@+id/backButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="goHome"
         android:text="Back to Home"
         tools:layout_editor_absoluteX="42dp"
         tools:layout_editor_absoluteY="250dp" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/mapButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="toMap"
         android:text="See other Protests"
         tools:layout_editor_absoluteX="187dp"
         tools:layout_editor_absoluteY="250dp" />
