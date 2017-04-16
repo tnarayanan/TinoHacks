@@ -31,7 +31,7 @@
         android:text="Email" />
 
 
-    <ImageButton
+    <ImageView
         android:id="@+id/user_profile_photo"
         android:layout_width="300dp"
         android:layout_height="320dp"
@@ -47,7 +47,7 @@
         android:layout_below="@+id/user_profile_photo"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="0dp"
-        android:layout_marginTop="11dp"></com.google.android.gms.common.SignInButton>
+        android:layout_marginTop="11dp"/>
 
     <Button
         android:id="@+id/signOut"
