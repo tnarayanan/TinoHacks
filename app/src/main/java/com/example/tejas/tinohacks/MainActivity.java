@@ -15,20 +15,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private List<Policy> policies;
+
+
     private RecyclerView rv;
+
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
@@ -46,6 +42,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         reference.removeValue();
+
+        new UpdateArticlesTask().execute("https://en.wikinews.org/wiki/Category:Politics_and_conflicts");
+
+        while (!UpdateArticlesTask.finishedUpdating) {
+            // waits
+        }
+
+
+        for (int i = 0; i < 10; i++) {
+            reference.child(String.valueOf(i)).child("title").setValue(UpdateArticlesTask.titles.get(i));
+            reference.child(String.valueOf(i)).child("article").setValue(UpdateArticlesTask.articles.get(i));
+        }
+
 
 
         rv=(RecyclerView)findViewById(R.id.rv);
@@ -90,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         rv.setAdapter(adapter);
     }
 
-    private static String accessStrings(String url) throws IOException { // one long string of all info in paragraph
+    /*private static String accessStrings(String url) throws IOException { // one long string of all info in paragraph
         String allInfo = "";
         URL website = new URL(url);
         BufferedReader html = new BufferedReader(
@@ -108,4 +117,55 @@ public class MainActivity extends AppCompatActivity {
         html.close();
         return allInfo;
     }
+
+    private static String accessTitles(String url) throws IOException {
+        String allInfo = "";
+        URL website = new URL(url);
+        BufferedReader html = new BufferedReader(
+                new InputStreamReader(website.openStream()));
+        String inputLine;
+
+        while ((inputLine = html.readLine()) != null) {
+            Document doc = Jsoup.parse(inputLine);
+            String curLine = doc.getElementsByTag("h1").text();
+            if (curLine != null) {
+                return curLine;
+            }
+        }
+
+        return allInfo;
+    }
+
+    private static void updateArticles() throws IOException {
+        URL website = new URL("https://en.wikinews.org/wiki/Category:Politics_and_conflicts");
+        BufferedReader br = new BufferedReader(
+                new InputStreamReader(website.openStream()));
+        String inputLine;
+
+        int counter = 0;
+
+        while ((inputLine = br.readLine()) != null) {
+
+            Document doc = Jsoup.parse(inputLine);
+            String storeString = doc.getElementsByTag("a").attr("href");
+
+
+
+            if (storeString.length() > 8 && storeString.substring(0,6).equals("/wiki/") && counter < 10) {
+                String goodUrl = "en.wikinews.org" + storeString;
+
+                articles.add(accessStrings(goodUrl));
+                titles.add(accessTitles(goodUrl));
+
+                counter++;
+
+            }
+
+            if (counter == 10) {
+                break;
+            }
+
+        }
+        br.close();
+    }*/
 }
