@@ -22,9 +22,6 @@ public class ForumActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forum);
 
-        Bundle extras = getIntent().getExtras();
-        final int policyID = extras.getInt("policyID");
-
         FloatingActionButton fab =
                 (FloatingActionButton)findViewById(R.id.fab);
 
@@ -36,7 +33,7 @@ public class ForumActivity extends AppCompatActivity {
                 // Read the input field and push a new instance
                 // of ChatMessage to the Firebase database
                 FirebaseDatabase.getInstance()
-                        .getReference().child("Forums").child(String.valueOf(policyID))
+                        .getReference().child("Forums").child(String.valueOf(MainActivity.policyID))
                         .push()
                         .setValue(new ForumMessage(input.getText().toString(),
                                 LoginActivity.USERNAME)
@@ -50,7 +47,7 @@ public class ForumActivity extends AppCompatActivity {
         ListView listOfMessages = (ListView)findViewById(R.id.list_of_messages);
 
         adapter = new FirebaseListAdapter<ForumMessage>(this, ForumMessage.class,
-                R.layout.message, FirebaseDatabase.getInstance().getReference().child("Forums").child(String.valueOf(policyID))) {
+                R.layout.message, FirebaseDatabase.getInstance().getReference().child("Forums").child(String.valueOf(MainActivity.policyID))) {
             @Override
             protected void populateView(View v, ForumMessage model, int position) {
                 // Get references to the views of message.xml
