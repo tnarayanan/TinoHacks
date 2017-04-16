@@ -51,6 +51,7 @@
         <activity
             android:name=".ProtestsMap"
             android:label="@string/title_activity_protests_map" />
+        <activity android:name=".ProtestOrganization" />
         <activity android:name=".CongratulationsActivity" />
         <activity android:name=".ForumActivity"></activity>
     </application>
