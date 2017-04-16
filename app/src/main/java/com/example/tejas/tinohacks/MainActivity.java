@@ -5,9 +5,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,12 +24,17 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.tejas.tinohacks.R.id.signOut;
+
 public class MainActivity extends AppCompatActivity {
 
     public static ArrayList<Policy> policies;
 
 
     private RecyclerView rv;
+
+    public GoogleApiClient mGoogleApiClient;
+
 
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -78,6 +89,26 @@ public class MainActivity extends AppCompatActivity {
 
         initializeData();
         //initializeAdapter();
+    }
+
+    public boolean onCreateOptionMenu(Menu menu){
+
+        getMenuInflater().inflate(R.menu.threedotmenu, menu);
+        return true;
+
+    }
+
+    public void signOut(View view){
+
+        FirebaseAuth.getInstance().signOut();
+                Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                        new ResultCallback<Status>() {
+                            @Override
+                            public void onResult(Status status) {
+
+                            }
+                        });
+
     }
 
     private void initializeData(){
