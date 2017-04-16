@@ -13,6 +13,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
+        reference.removeValue();
+
 
         rv=(RecyclerView)findViewById(R.id.rv);
 
@@ -71,5 +81,24 @@ public class MainActivity extends AppCompatActivity {
     private void initializeAdapter(){
         RVAdapter adapter = new RVAdapter(policies);
         rv.setAdapter(adapter);
+    }
+
+    private static String accessStrings(String url) throws IOException { // one long string of all info in paragraph
+        String allInfo = "";
+        URL website = new URL(url);
+        BufferedReader html = new BufferedReader(
+                new InputStreamReader(website.openStream()));
+        String inputLine;
+
+        while ((inputLine = html.readLine()) != null) {
+            Document doc = Jsoup.parse(inputLine);
+            String curLine = doc.getElementsByTag("p").text();
+            if (curLine != null) {
+                allInfo += curLine;
+            }
+        }
+
+        html.close();
+        return allInfo;
     }
 }
