@@ -32,7 +32,10 @@
                 android:id="@+id/datePicker1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="39dp"
+                android:layout_marginTop="40dp"
+                android:dayOfWeekBackground="@drawable/com_facebook_auth_dialog_header_background"
+                android:headerBackground="@drawable/com_facebook_auth_dialog_header_background"
+                android:yearListSelectorColor="@color/com_facebook_blue"
                 android:layout_below="@+id/textView4"
                 android:layout_centerHorizontal="true" />
 
@@ -40,22 +43,22 @@
                 android:id="@+id/timePicker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="39dp"
+                android:layout_alignParentStart="true"
                 android:layout_below="@+id/datePicker1"
-                android:layout_alignParentStart="true" />
+                android:layout_marginTop="39dp"
+                android:amPmBackgroundColor="@drawable/com_facebook_auth_dialog_header_background"
+                android:headerBackground="@drawable/com_facebook_auth_dialog_header_background" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Now enter the location of the protest"
-                android:layout_below="@+id/timePicker"
-                android:layout_centerHorizontal="true"
                 android:id = "@+id/addressDescText"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginTop="38dp"
 
 
-                />
+                android:layout_below="@+id/timePicker"
+                android:layout_centerHorizontal="true" />
 
             <EditText
                 android:id="@+id/protestAddress"
@@ -72,10 +75,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1060dp"
+                android:background="@drawable/com_facebook_auth_dialog_header_background"
+
+
                 android:onClick="submitButton"
-
-
-                android:text="Submit" />
+                android:text="Submit"
+                android:textColor="@color/cardview_light_background" />
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
 </RelativeLayout>
