@@ -55,6 +55,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public Context context;
 
+    public static String USERNAME = "";
+
     public FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     public static final int RC_SIGN_IN = 9001;
@@ -183,6 +185,9 @@ public class LoginActivity extends AppCompatActivity {
                                                 if(tokenizer.nextElement().equals(user.getEmail().toString())){
                                                     previousUser=true;
                                                     Toast.makeText(getApplicationContext(), "prevUserTruuu", Toast.LENGTH_LONG).show();
+                                                    while (tokenizer.hasMoreElements()) {
+                                                        USERNAME += tokenizer.nextToken();
+                                                    }
                                                 }
                                             }
 
@@ -214,7 +219,7 @@ public class LoginActivity extends AppCompatActivity {
                                                     public void onClick(DialogInterface dialog, int whichButton) {
                                                         String username = input.getText().toString();
                                                         database.getReference("users").child(user.getUid()).setValue(user.getEmail() + " " + username);
-
+                                                        USERNAME = username;
                                                         Intent i = new Intent(getApplicationContext(), MainActivity.class);
                                                         startActivity(i);
 

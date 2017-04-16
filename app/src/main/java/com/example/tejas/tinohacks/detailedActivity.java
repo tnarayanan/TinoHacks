@@ -1,10 +1,13 @@
 package com.example.tejas.tinohacks;
 
 import android.content.Intent;
+import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -15,11 +18,17 @@ import com.google.firebase.database.ValueEventListener;
 
 import net.sf.classifier4J.summariser.SimpleSummariser;
 
+import org.jfree.data.category.DefaultCategoryDataset;
+
 public class detailedActivity extends AppCompatActivity {
 
     TextView title;
     TextView article;
     Button forum;
+    RadioGroup rg;
+    RadioButton happy, sad;
+
+    private int currPosVal, currNegVal = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +42,53 @@ public class detailedActivity extends AppCompatActivity {
         article = (TextView) findViewById(R.id.article);
         forum = (Button) findViewById(R.id.forum);
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference().child("policies").child(String.valueOf(policyID));
+        rg = (RadioGroup) findViewById(R.id.rg);
+        happy = (RadioButton) findViewById(R.id.happy);
+        sad = (RadioButton) findViewById(R.id.sad);
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference reference = database.getReference().child("policies").child(String.valueOf(policyID));
+
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+
+
+
+                reference.child("0").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        currNegVal = dataSnapshot.getValue(Integer.class);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+                reference.child("1").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        currPosVal = dataSnapshot.getValue(Integer.class);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+                if (checkedId == 0) { // Neg
+                    reference.child("0").setValue(currNegVal + 1);
+                } else if (checkedId == 1) { // Pos
+                    reference.child("1").setValue(currPosVal + 1);
+                }
+
+                DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+            }
+        });
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override

@@ -39,9 +39,7 @@ public class ForumActivity extends AppCompatActivity {
                         .getReference().child("Forums").child(String.valueOf(policyID))
                         .push()
                         .setValue(new ForumMessage(input.getText().toString(),
-                                FirebaseAuth.getInstance()
-                                        .getCurrentUser()
-                                        .getDisplayName())
+                                LoginActivity.USERNAME)
                         );
 
                 // Clear the input
