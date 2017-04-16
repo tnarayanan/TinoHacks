@@ -3,6 +3,8 @@ package com.example.tejas.tinohacks;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 public class detailedActivity extends AppCompatActivity {
 
     @Override
@@ -12,5 +14,7 @@ public class detailedActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         int policyID = extras.getInt("policyID");
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
     }
 }

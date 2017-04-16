@@ -223,6 +223,9 @@ public class LoginActivity extends AppCompatActivity {
 
                                                 builder.show();
 
+                                            } else {
+                                                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                                                startActivity(i);
                                             }
                                         }
 
