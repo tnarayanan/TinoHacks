@@ -63,6 +63,11 @@
 
             </RadioGroup>
 
+            <com.github.mikephil.charting.charts.BarChart
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:id="@+id/barGraph"/>
+
             <Button
                 android:id="@+id/forum"
                 android:layout_width="match_parent"

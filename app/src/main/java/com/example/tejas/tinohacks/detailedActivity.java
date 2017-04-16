@@ -16,6 +16,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+
+
 import net.sf.classifier4J.summariser.SimpleSummariser;
 
 import org.jfree.chart.ChartFactory;
@@ -23,6 +29,9 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class detailedActivity extends AppCompatActivity {
 
@@ -32,6 +41,8 @@ public class detailedActivity extends AppCompatActivity {
     Button protest;
     RadioGroup rg;
     RadioButton happy, sad;
+
+    BarChart barChart;
 
     private int currPosVal, currNegVal = 0;
 
@@ -51,6 +62,8 @@ public class detailedActivity extends AppCompatActivity {
         rg = (RadioGroup) findViewById(R.id.rg);
         happy = (RadioButton) findViewById(R.id.happy);
         sad = (RadioButton) findViewById(R.id.sad);
+
+        barChart = (BarChart) findViewById(R.id.barGraph);
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference reference = database.getReference().child("policies").child(String.valueOf(policyID));
@@ -85,12 +98,37 @@ public class detailedActivity extends AppCompatActivity {
                     }
                 });
 
-                if (checkedId == 0) { // Neg
+
+
+                if (checkedId == R.id.sad) { // Neg
                     reference.child("0").setValue(currNegVal + 1);
-                } else if (checkedId == 1) { // Pos
+                } else if (checkedId == R.id.happy) { // Pos
                     reference.child("1").setValue(currPosVal + 1);
                 }
 
+
+                ArrayList<BarEntry> barEntries = new ArrayList<BarEntry>();
+
+                barEntries.add(new BarEntry(currNegVal, 0));
+                barEntries.add(new BarEntry(currPosVal, 1));
+                BarDataSet barDataSet = new BarDataSet(barEntries, "Satisfaction");
+
+                ArrayList<String> xAxis = new ArrayList<String>();
+
+                xAxis.add("Unsatisfied");
+                xAxis.add("Satisfied");
+
+                BarData data = new BarData(xAxis, barDataSet);
+                barChart.setData(data);
+
+                barChart.setTouchEnabled(true);
+                barChart.setDragEnabled(true);
+                barChart.setScaleEnabled(true);
+
+
+
+
+                /*
                 DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
                 String series1 = "Unsatisfied";
@@ -114,7 +152,7 @@ public class detailedActivity extends AppCompatActivity {
 
                 CategoryPlot plot = (CategoryPlot) chart.getPlot();
 
-                //final ChartComposite frame = new ChartComp
+                //final ChartComposite frame = new ChartComp*/
 
             }
         });
@@ -146,7 +184,7 @@ public class detailedActivity extends AppCompatActivity {
         protest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), ForumActivity.class);
+                Intent i = new Intent(getApplicationContext(), ProtestOrganization.class);
                 i.putExtra("policyID", policyID);
                 startActivity(i);
             }
