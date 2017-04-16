@@ -1,7 +1,10 @@
 package com.example.tejas.tinohacks;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -16,6 +19,7 @@ public class detailedActivity extends AppCompatActivity {
 
     TextView title;
     TextView article;
+    Button forum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,10 +27,11 @@ public class detailedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detailed);
 
         Bundle extras = getIntent().getExtras();
-        int policyID = extras.getInt("policyID");
+        final int policyID = extras.getInt("policyID");
 
         title = (TextView) findViewById(R.id.title);
         article = (TextView) findViewById(R.id.article);
+        forum = (Button) findViewById(R.id.forum);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference().child("policies").child(String.valueOf(policyID));
@@ -46,5 +51,16 @@ public class detailedActivity extends AppCompatActivity {
 
             }
         });
+
+        forum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), ForumActivity.class);
+                i.putExtra("policyID", policyID);
+                startActivity(i);
+            }
+        });
+
+
     }
 }

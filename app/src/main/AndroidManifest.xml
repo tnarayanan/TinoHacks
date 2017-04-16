@@ -20,9 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-
-        </activity>
+        <activity android:name=".MainActivity"></activity>
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,7 +44,8 @@
         <activity
             android:name=".ProtestsMap"
             android:label="@string/title_activity_protests_map" />
-        <activity android:name=".CongratulationsActivity"></activity>
+        <activity android:name=".CongratulationsActivity" />
+        <activity android:name=".ForumActivity"></activity>
     </application>
 
 </manifest>

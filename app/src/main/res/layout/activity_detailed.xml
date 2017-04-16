@@ -33,6 +33,12 @@
                 android:padding="15dp"
                 android:text="TextView" />
 
+            <Button
+                android:id="@+id/forum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Go to Forums" />
+
         </LinearLayout>
     </ScrollView>
 
