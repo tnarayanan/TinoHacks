@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/item1"
-        android:title="Sign Out"
+
+    <item
+        android:id="@+id/signOut"
+        android:checkable="false"
+        android:enabled="true"
         android:onClick="signOut"
-
-        />v
-
+        android:title="Sign Out"
+        android:visible="true"
+        app:showAsAction="always" />
 </menu>

@@ -1,10 +1,14 @@
 package com.example.tejas.tinohacks;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
 
         if(FirebaseAuth.getInstance().getCurrentUser()==null){
@@ -91,25 +97,33 @@ public class MainActivity extends AppCompatActivity {
         //initializeAdapter();
     }
 
-    public boolean onCreateOptionMenu(Menu menu){
 
-        getMenuInflater().inflate(R.menu.threedotmenu, menu);
-        return true;
 
+
+
+   @Override
+    public void onBackPressed(){
+        FirebaseAuth.getInstance().signOut();
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+
+                    }
+                });
     }
 
-    public void signOut(View view){
 
-        FirebaseAuth.getInstance().signOut();
+       /* FirebaseAuth.getInstance().signOut();
                 Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                         new ResultCallback<Status>() {
                             @Override
                             public void onResult(Status status) {
 
                             }
-                        });
+                        });*/
 
-    }
+
 
     private void initializeData(){
 
