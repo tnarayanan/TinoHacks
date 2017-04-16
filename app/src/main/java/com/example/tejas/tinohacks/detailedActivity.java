@@ -18,6 +18,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import net.sf.classifier4J.summariser.SimpleSummariser;
 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 public class detailedActivity extends AppCompatActivity {
@@ -25,6 +29,7 @@ public class detailedActivity extends AppCompatActivity {
     TextView title;
     TextView article;
     Button forum;
+    Button protest;
     RadioGroup rg;
     RadioButton happy, sad;
 
@@ -41,12 +46,13 @@ public class detailedActivity extends AppCompatActivity {
         title = (TextView) findViewById(R.id.title);
         article = (TextView) findViewById(R.id.article);
         forum = (Button) findViewById(R.id.forum);
+        protest = (Button) findViewById(R.id.protest);
 
         rg = (RadioGroup) findViewById(R.id.rg);
         happy = (RadioButton) findViewById(R.id.happy);
         sad = (RadioButton) findViewById(R.id.sad);
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference reference = database.getReference().child("policies").child(String.valueOf(policyID));
 
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -87,6 +93,29 @@ public class detailedActivity extends AppCompatActivity {
 
                 DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
+                String series1 = "Unsatisfied";
+                String series2 = "Satisfied";
+
+                String category1 = "Satisfaction";
+
+                dataset.addValue(currNegVal, series1, category1);
+                dataset.addValue(currPosVal, series2, category1);
+
+                JFreeChart chart = ChartFactory.createBarChart("Satisfaction", // chart
+                        // title
+                        "", // domain axis label
+                        "# of Users", // range axis label
+                        dataset, // data
+                        PlotOrientation.VERTICAL, // orientation
+                        false, // include legend
+                        false, // tooltips?
+                        false // URLs?
+                );
+
+                CategoryPlot plot = (CategoryPlot) chart.getPlot();
+
+                //final ChartComposite frame = new ChartComp
+
             }
         });
 
@@ -106,6 +135,15 @@ public class detailedActivity extends AppCompatActivity {
         });
 
         forum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), ForumActivity.class);
+                i.putExtra("policyID", policyID);
+                startActivity(i);
+            }
+        });
+
+        protest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), ForumActivity.class);
