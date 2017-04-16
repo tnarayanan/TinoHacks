@@ -1,13 +1,20 @@
 package com.example.tejas.tinohacks;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ShareCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputType;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +40,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.StringTokenizer;
+
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -43,9 +52,13 @@ public class LoginActivity extends AppCompatActivity {
 
     public FirebaseAuth.AuthStateListener mAuthListener;
 
+    public Context context;
+
     public FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     public static final int RC_SIGN_IN = 9001;
+
+    public Boolean previousUser = false;
 
     private TextView email;
     private TextView name;
@@ -55,6 +68,10 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        context = this;
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -149,12 +166,78 @@ public class LoginActivity extends AppCompatActivity {
                         if (!task.isSuccessful()) {
                             Toast.makeText(getApplicationContext(), "Cred=Failure", Toast.LENGTH_LONG).show();
                         } else {
-                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                             Toast.makeText(getApplicationContext(), "Cred=Success", Toast.LENGTH_LONG).show();
                             email.setText(user.getEmail().toString());
                             name.setText(user.getUid());
 
-                            database.getReference("users").child(user.getUid()).setValue(user.getEmail());
+
+                            //database.getReference("users").addValueEventListener(new ValueEventListener() {
+                            mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+                                @Override
+                                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                                    database.getReference("users").addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            for(DataSnapshot ChildDataSnapshot:dataSnapshot.getChildren()){
+                                                StringTokenizer tokenizer = new StringTokenizer(ChildDataSnapshot.getValue().toString());
+
+                                                if(tokenizer.nextElement().equals(user.getEmail().toString())){
+                                                    previousUser=true;
+                                                    Toast.makeText(getApplicationContext(), "prevUserTruuu", Toast.LENGTH_LONG).show();
+                                                }
+                                            }
+
+
+
+                                            if(!previousUser){
+//                                        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+//                                        final EditText edittext = new EditText(getApplicationContext());
+//                                        builder.setTitle("Please enter a display name.");
+//                                        builder.setView(edittext);
+//                                        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                                            public void onClick(DialogInterface dialog, int whichButton) {
+//                                                String username = edittext.getText().toString();
+//                                                database.getReference("users").child(user.getUid()).setValue(user.getEmail() + " " + username);
+//                                            }
+//                                        });
+//                                        builder.show();
+
+                                                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                                                builder.setTitle("Username:");
+
+                                                // Set up the input
+                                                final EditText input = new EditText(context);
+                                                // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                                                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                                                builder.setView(input);
+
+                                                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                                        String username = input.getText().toString();
+                                                        database.getReference("users").child(user.getUid()).setValue(user.getEmail() + " " + username);
+
+                                                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                                                        startActivity(i);
+
+                                                    }
+                                                });
+
+                                                builder.show();
+
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                }
+                            });
+
+
+
 
                         }
                         // ...
