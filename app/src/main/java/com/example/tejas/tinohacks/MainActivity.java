@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot d : dataSnapshot.getChildren()) {
-                    policies.add(new Policy(d.getKey(), d.getValue().toString()));
+                    policies.add(new Policy(d.child("title").getValue().toString(), d.child("article").getValue().toString()));
                 }
             }
 
