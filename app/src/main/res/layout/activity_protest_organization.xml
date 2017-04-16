@@ -70,7 +70,7 @@
                 android:layout_below="@+id/addressDescText"
                 android:layout_marginTop="44dp"
                 android:ems="10"
-                android:hint="i.e. 1234 MoonBear Lane, Moon Bear, CA 95014"
+                android:hint="Address"
                 android:inputType="textPostalAddress" />
 
             <Button
