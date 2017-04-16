@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -28,14 +29,14 @@ public class detailedActivity extends AppCompatActivity {
         article = (TextView) findViewById(R.id.article);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference().child(String.valueOf(policyID));
 
-        database.getReference("policies").addValueEventListener(new ValueEventListener() {
+
+        reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot ChildDataSnapshot: dataSnapshot.getChildren()){
-                    title.setText(ChildDataSnapshot.child("title").getValue(String.class));
-                    article.setText(ChildDataSnapshot.child("article").getValue(String.class));
-                }
+                title.setText(dataSnapshot.child("title").getValue().toString());
+                article.setText(dataSnapshot.child("article").getValue().toString());
             }
 
             @Override
