@@ -20,7 +20,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private List<Policy> policies;
+    public static ArrayList<Policy> policies;
 
 
     private RecyclerView rv;
@@ -41,11 +41,12 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        reference.removeValue();
+//        reference.removeValue();
+//
+//        new UpdateArticlesTask().execute("https://en.wikinews.org/wiki/Category:Politics_and_conflicts");
 
-        new UpdateArticlesTask().execute("https://en.wikinews.org/wiki/Category:Politics_and_conflicts");
-
-        while (!UpdateArticlesTask.finishedUpdating) {
+        //double currTime = System.currentTimeMillis();
+        /*while (UpdateArticlesTask.titles.size() < 10 || UpdateArticlesTask.articles.size() < 10) {
             // waits
         }
 
@@ -53,7 +54,9 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < 10; i++) {
             reference.child(String.valueOf(i)).child("title").setValue(UpdateArticlesTask.titles.get(i));
             reference.child(String.valueOf(i)).child("article").setValue(UpdateArticlesTask.articles.get(i));
-        }
+        }*/
+
+        //Toast.makeText(this, "Past Firebase", Toast.LENGTH_SHORT).show();
 
 
 
@@ -67,21 +70,27 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 Toast.makeText(getApplicationContext(), String.valueOf(position), Toast.LENGTH_LONG).show();
+                Intent i = new Intent(getApplicationContext(), detailedActivity.class);
+                i.putExtra("policyID", position);
+                startActivity(i);
             }
         });
 
         initializeData();
-        initializeAdapter();
+        //initializeAdapter();
     }
 
     private void initializeData(){
 
         policies = new ArrayList<>();
 
-        reference.addValueEventListener(new ValueEventListener() {
+
+
+        /*reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot d : dataSnapshot.getChildren()) {
+                    //Toast.makeText(MainActivity.this, d.child("title").getValue().toString() + " |||||| " + d.child("article").getValue().toString(), Toast.LENGTH_LONG).show();
                     policies.add(new Policy(d.child("title").getValue().toString(), d.child("article").getValue().toString()));
                 }
             }
@@ -90,7 +99,36 @@ public class MainActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
 
             }
+        });*/
+
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot d : dataSnapshot.getChildren()) {
+                    //Toast.makeText(MainActivity.this, d.child("title").getValue().toString() + " |||||| " + d.child("article").getValue().toString(), Toast.LENGTH_LONG).show();
+                    policies.add(new Policy(d.child("title").getValue(String.class), d.child("article").getValue(String.class).substring(0, 100) + "..."));
+                    /*for(DataSnapshot d1: d.getChildren()) {
+                        policies.add(new Policy(d.child("title").getValue(String.class), d.child("article").getValue(String.class)));
+                    }*/
+                }
+
+                //Toast.makeText(MainActivity.this, policies.toString(), Toast.LENGTH_LONG).show();
+
+                RVAdapter adapter = new RVAdapter(policies);
+                rv.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
         });
+        /*
+        for (int i = 0; i < 10; i++) {
+            policies.add(new Policy(reference.child(String.valueOf(i)).child("title").toString(), reference.child(String.valueOf(i)).child("article").toString()));
+        }*/
+
 
     }
 

@@ -9,5 +9,8 @@ public class detailedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed);
+
+        Bundle extras = getIntent().getExtras();
+        int policyID = extras.getInt("policyID");
     }
 }

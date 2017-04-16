@@ -8,7 +8,7 @@ public class Policy {
     String name;
     String description;
 
-    Policy(String name, String description) {
+    public Policy(String name, String description) {
         this.name = name;
         this.description = description;
     }
