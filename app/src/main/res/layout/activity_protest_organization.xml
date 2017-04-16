@@ -11,9 +11,8 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp">
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -60,14 +59,14 @@
 
             <EditText
                 android:id="@+id/protestAddress"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/addressDescText"
+                android:layout_marginTop="44dp"
                 android:ems="10"
-                android:inputType="textPostalAddress"
-                android:text="Your Address"
-                android:layout_alignStart="@+id/addressDescText"
-                android:layout_marginTop="1000dp"
-                />
+                android:hint="i.e. 1234 MoonBear Lane, Moon Bear, CA 95014"
+                android:inputType="textPostalAddress" />
 
             <Button
                 android:layout_width="match_parent"
