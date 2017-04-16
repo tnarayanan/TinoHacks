@@ -39,6 +39,7 @@ public class detailedActivity extends AppCompatActivity {
     TextView article;
     Button forum;
     Button protest;
+    Button allProtests;
     RadioGroup rg;
     RadioButton happy, sad;
 
@@ -55,6 +56,7 @@ public class detailedActivity extends AppCompatActivity {
         article = (TextView) findViewById(R.id.article);
         forum = (Button) findViewById(R.id.forum);
         protest = (Button) findViewById(R.id.protest);
+        allProtests = (Button) findViewById(R.id.allProtests);
 
         /*rg = (RadioGroup) findViewById(R.id.rg);
         happy = (RadioButton) findViewById(R.id.happy);
@@ -173,6 +175,14 @@ public class detailedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), ForumActivity.class);
+                startActivity(i);
+            }
+        });
+
+        allProtests.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), NewProtestListActivity.class);
                 startActivity(i);
             }
         });

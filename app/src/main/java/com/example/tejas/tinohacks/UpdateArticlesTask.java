@@ -15,7 +15,8 @@ import java.util.ArrayList;
  * Created by TinoHacks on 4/15/17.
  */
 
-public class UpdateArticlesTask extends AsyncTask<String, Void, Void> {
+public class
+UpdateArticlesTask extends AsyncTask<String, Void, Void> {
 
     public static ArrayList<String> titles = new ArrayList<>();
     public static ArrayList<String> articles = new ArrayList<>();

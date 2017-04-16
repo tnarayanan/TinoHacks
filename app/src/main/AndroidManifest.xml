@@ -10,22 +10,16 @@
          location permissions for the 'MyLocation' functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-    uses-permission android:name="android.permission.INTERNET"
     <application
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-
         android:allowBackup="true"
         android:icon="@drawable/politicologo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true">
-
-
-        <activity android:name=".MainActivity">
-
-        </activity>
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".MainActivity" />
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".LoginActivity">
@@ -48,12 +42,14 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+        <activity android:name=".ProtestOrganization" />
         <activity
             android:name=".ProtestsMap"
             android:label="@string/title_activity_protests_map" />
-        <activity android:name=".ProtestOrganization" />
         <activity android:name=".CongratulationsActivity" />
-        <activity android:name=".ForumActivity"></activity>
+        <activity android:name=".ForumActivity" />
+        <activity android:name=".ProtestListActivity" />
+        <activity android:name=".NewProtestListActivity"></activity>
     </application>
 
 </manifest>

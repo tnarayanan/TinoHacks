@@ -11,7 +11,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,6 +83,15 @@
                 android:layout_marginTop="10dp"
                 android:background="@color/green"
                 android:text="Protest This"
+                android:textColor="@color/buttonTextColor" />
+
+            <Button
+                android:id="@+id/allProtests"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/green"
+                android:text="View all protests"
                 android:textColor="@color/buttonTextColor" />
 
         </LinearLayout>

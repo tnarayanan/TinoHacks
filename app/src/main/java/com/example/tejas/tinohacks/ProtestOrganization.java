@@ -1,9 +1,11 @@
 package com.example.tejas.tinohacks;
 
+import android.content.Intent;
 import android.icu.util.Calendar;
 import android.location.Address;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
@@ -26,7 +28,7 @@ public class ProtestOrganization extends AppCompatActivity {
 
     public static String policy;
 
-    public void submitButton(){
+    public void submitButton(View view){
         final DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker1);
         int day = datePicker.getDayOfMonth();
         int month = datePicker.getMonth() + 1;
@@ -56,7 +58,7 @@ public class ProtestOrganization extends AppCompatActivity {
 
 
 
-        database.getReference("Policies").addValueEventListener(new ValueEventListener() {
+        /*database.getReference("Policies").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot childDataSnapshot:dataSnapshot.getChildren()){
@@ -68,7 +70,10 @@ public class ProtestOrganization extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        });*/
+
+        Intent i = new Intent(this,CongratulationsActivity.class);
+        startActivity(i);
 
 
     }

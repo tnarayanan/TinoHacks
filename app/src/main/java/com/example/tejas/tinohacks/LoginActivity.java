@@ -103,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if(user == null){
-                    Toast.makeText(getApplicationContext(), "Sign In Plsls", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), "Sign In Plsls", Toast.LENGTH_LONG).show();
 
                 }
             }
@@ -146,12 +146,12 @@ public class LoginActivity extends AppCompatActivity {
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()) {
-                Toast.makeText(getApplicationContext(), "Successsign", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "Successsign", Toast.LENGTH_LONG).show();
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
 
             } else {
-                Toast.makeText(getApplicationContext(), "badSign", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Bad Sign In", Toast.LENGTH_LONG).show();
                 // ...
             }
         }
@@ -167,10 +167,10 @@ public class LoginActivity extends AppCompatActivity {
 
 
                         if (!task.isSuccessful()) {
-                            Toast.makeText(getApplicationContext(), "Cred=Failure", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getApplicationContext(), "Cred=Failure", Toast.LENGTH_LONG).show();
                         } else {
                             final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                            Toast.makeText(getApplicationContext(), "Cred=Success", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getApplicationContext(), "Cred=Success", Toast.LENGTH_LONG).show();
                             //email.setText(user.getEmail().toString());
                             //name.setText(user.getUid());
 
@@ -187,7 +187,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                                 if(tokenizer.nextElement().equals(user.getEmail().toString())){
                                                     previousUser=true;
-                                                    Toast.makeText(getApplicationContext(), "prevUserTruuu", Toast.LENGTH_LONG).show();
+                                                    //Toast.makeText(getApplicationContext(), "prevUserTruuu", Toast.LENGTH_LONG).show();
                                                     while (tokenizer.hasMoreElements()) {
                                                         USERNAME += tokenizer.nextToken();
                                                     }
