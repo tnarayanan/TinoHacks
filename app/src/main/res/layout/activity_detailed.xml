@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:padding="15dp"
                 android:text="TextView" />
-<!--
+            <!--
             <TextView
                 android:id="@+id/ratingLabel"
                 android:layout_width="match_parent"
@@ -72,13 +72,19 @@
                 android:id="@+id/forum"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Go to Forums" />
+                android:background="@color/green"
+                android:text="Go to Forums"
+                android:textColor="@color/buttonTextColor"
+                android:textColorLink="@color/buttonTextColor" />
 
             <Button
                 android:id="@+id/protest"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Protest This" />
+                android:layout_marginTop="10dp"
+                android:background="@color/green"
+                android:text="Protest This"
+                android:textColor="@color/buttonTextColor" />
 
         </LinearLayout>
     </ScrollView>
