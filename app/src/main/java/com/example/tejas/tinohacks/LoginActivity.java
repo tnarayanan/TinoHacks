@@ -61,9 +61,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public Boolean previousUser = false;
 
-    private TextView email;
-    private TextView name;
-
     private Button signOut;
     private com.google.android.gms.common.SignInButton signInButton;
 
@@ -78,8 +75,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        email = (TextView) findViewById(R.id.email);
-        name = (TextView) findViewById(R.id.name);
         signOut = (Button) findViewById(R.id.signOut);
         signInButton = (com.google.android.gms.common.SignInButton) findViewById(R.id.signIn);
 
@@ -115,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
                 signIn();
             }
         });
-
+/*
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         });
             }
-        });
+        });*/
 
     }
 
@@ -171,8 +166,8 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                             Toast.makeText(getApplicationContext(), "Cred=Success", Toast.LENGTH_LONG).show();
-                            email.setText(user.getEmail().toString());
-                            name.setText(user.getUid());
+                            //email.setText(user.getEmail().toString());
+                            //name.setText(user.getUid());
 
 
                             //database.getReference("users").addValueEventListener(new ValueEventListener() {
