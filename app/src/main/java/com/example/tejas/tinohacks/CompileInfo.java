@@ -31,9 +31,9 @@ public class CompileInfo {
         // PBS
         // CNN
 
-        System.out.println(accessStrings("https://en.wikinews.org/wiki/Donald_Trump_elected_US_president"));
-        System.out.println(accessImages("https://en.wikinews.org/wiki/Donald_Trump_elected_US_president"));
-
+        //System.out.println(accessStrings("https://en.wikinews.org/wiki/Donald_Trump_elected_US_president"));
+        //System.out.println(accessImages("https://en.wikinews.org/wiki/Donald_Trump_elected_US_president"));
+        getPoliticalURL();
         /*Document doc = Jsoup.parse(html.toString());
         Element link = doc.select("a").first();*/
 
@@ -49,6 +49,38 @@ public class CompileInfo {
         System.out.println(linkText);
         System.out.println(linkOuterH);
         System.out.println(linkInnerH);*/
+    }
+
+    private static ArrayList<URL> getPoliticalURL() throws IOException {
+        ArrayList<URL> news = new ArrayList<>();
+
+        URL website = new URL("https://en.wikinews.org/wiki/Category:Politics_and_conflicts");
+        BufferedReader br = new BufferedReader(
+                new InputStreamReader(website.openStream()));
+        String inputLine;
+
+        int counter = 0;
+
+        while ((inputLine = br.readLine()) != null) {
+
+            Document doc = Jsoup.parse(inputLine);
+            String storeString = doc.getElementsByTag("a").attr("href");
+
+
+
+            if (storeString.length() > 8 && storeString.substring(0,6).equals("/wiki/") && counter < 10) {
+                System.out.println("en.wikinews.org" + storeString);
+                counter++;
+            }
+
+            if (counter == 10) {
+                break;
+            }
+
+        }
+        br.close();
+
+        return news;
     }
 
     private static ArrayList<String> chooseSentences(String url) throws IOException { // returns date and stats
@@ -105,6 +137,7 @@ public class CompileInfo {
         BufferedReader br = new BufferedReader(
                 new InputStreamReader(website.openStream()));
         String inputLine;
+
 
         while ((inputLine = br.readLine()) != null) {
 
